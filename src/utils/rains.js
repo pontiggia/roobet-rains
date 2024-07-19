@@ -17,7 +17,7 @@ export const connect = () => {
   ws.on("open", () => {
     console.log("Connected to the server.");
   });
-``
+  ``
   ws.on("message", (data) => {
     const message = data.toString();
     processMessage(message);
@@ -44,7 +44,7 @@ function processMessage(data) {
       const parsedData = JSON.parse(jsonData);
       const eventType = parsedData[0];
       const eventData = parsedData[1];
-      if (eventType === 'rainUpdate') {
+      if (eventType === 'new_bet') {
         console.log('New bet:', eventData);
         if (dataCallback) {
           dataCallback(eventData);

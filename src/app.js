@@ -6,6 +6,7 @@ import mongoSanitize from "express-mongo-sanitize";
 import xss from "xss-clean";
 import hpp from "hpp";
 import cookieParser from "cookie-parser";
+import { engine } from "express-handlebars";
 
 import AppError from "./utils/appError.js";
 import globalErrorHandler from "./controllers/errorController.js";
@@ -14,45 +15,52 @@ import rainRoutes from "./routes/rainRoutes.js";
 import viewRoutes from "./routes/viewRoutes.js";
 
 const app = express();
-const __dirname = path.dirname(new URL(import.meta.url).pathname);
+const __dirname = path.resolve(); // Usamos path.resolve() para obtener el directorio raíz correctamente
 
+// Verificar las rutas
+console.log("Directorio raíz (__dirname):", __dirname);
+console.log("Directorio de vistas:", path.resolve(__dirname, "src/views"));
+
+// Middlewares
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.resolve(__dirname, "src/public"))); // Asegúrate de que el directorio public esté dentro de src
 
-app.set("view engine", "pug"); // Motor de plantillas
-app.set("views", path.join(__dirname, "views")); // Directorio donde se encuentran las plantillas
+// Configuración del motor de vistas
+app.engine("handlebars", engine()); // Configurar Handlebars como el motor de plantillas
+app.set("view engine", "handlebars"); // Motor de plantillas
+app.set("views", path.resolve(__dirname, "src/views")); // Directorio donde se encuentran las plantillas
 
+// Seguridad
 app.use(helmet());
-
-// Set X-XSS-Protection header
 app.use((req, res, next) => {
   res.setHeader("X-XSS-Protection", "1; mode=block");
   next();
 });
 
-// Limit requests from same API
+// Límites de tasa
 const limiter = rateLimit({
-    max: 50,
-    windowMs: 60 * 60 * 1000,
-    message: "Too many requests from this IP, please try again in an hour!",
-  });
+  max: 50,
+  windowMs: 60 * 60 * 1000,
+  message: "Too many requests from this IP, please try again in an hour!",
+});
 app.use("/api", limiter);
 
-// Security middlewares
+// Middlewares de seguridad adicionales
 app.use(mongoSanitize());
 app.use(xss());
 app.use(hpp());
 
-// Routes
+// Rutas
 app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/rains", rainRoutes);
 app.use("/", viewRoutes);
 
-
+// Manejo de rutas no encontradas
 app.all("*", (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
 });
 
+// Manejo global de errores
 app.use(globalErrorHandler);
 
 export default app;

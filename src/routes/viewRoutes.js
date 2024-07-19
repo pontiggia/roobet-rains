@@ -1,8 +1,10 @@
+// viewRoutes.js
 import express from "express";
-import { getOverview } from "../controllers/viewController.js";
+import { home, renderBase } from "../controllers/viewController.js";
 
 const router = express.Router();
 
-router.get("/test", getOverview);
+// router.get("/", renderBase);
+router.get("/", home);
 
 export default router;
