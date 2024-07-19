@@ -3,7 +3,7 @@ import catchAsync from "../utils/catchAsync.js";
 import AppError from "../utils/appError.js";
 import { connect } from "../utils/rains.js";
 
-connect();
+//connect();
 
 export const getRains = catchAsync(async (req, res, next) => {
   const rains = await Rain.find();

@@ -1,1 +1,1 @@
-export const pageName = "MAMAPONTI";
+export const pageName = "Uru gay";
