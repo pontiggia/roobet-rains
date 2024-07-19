@@ -11,15 +11,16 @@ import { pageName } from "../utils/globalVariables.js";
     });
 }); */
 
-export const renderBase = (req, res) => {
-    res.render("base", {
-        title: "Base View"
-    });
-};
-
 export const home = (req, res) => {
     res.render("home", {
         title: "Home View",
         pagename: pageName
     });
 };
+
+
+export const getLogin = (req, res) => {
+    res.render("login", {
+        title: "Login"
+    });
+}

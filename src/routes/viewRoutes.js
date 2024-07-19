@@ -1,10 +1,11 @@
 // viewRoutes.js
 import express from "express";
-import { home, renderBase } from "../controllers/viewController.js";
+import { home, getLogin } from "../controllers/viewController.js";
 
 const router = express.Router();
 
-// router.get("/", renderBase);
 router.get("/", home);
+
+router.get("/login", getLogin); 
 
 export default router;
