@@ -13,7 +13,7 @@ import { pageName } from "../utils/globalVariables.js";
 
 export const home = (req, res) => {
     res.render("home", {
-        title: "Home View",
+        title: `Home | ${pageName}`,
         pagename: pageName
     });
 };
@@ -21,6 +21,12 @@ export const home = (req, res) => {
 
 export const getLogin = (req, res) => {
     res.render("login", {
-        title: "Login"
+        title: `Login | ${pageName}`,
+    });
+}
+
+export const getRegister = (req, res) => {
+    res.render("signUp", {
+        title: `Register | ${pageName}`,
     });
 }
