@@ -1,1 +1,2 @@
-export const pageName = "Roobet Rains";
+export const pageName = "Chubet Rains";
+export const coinName = "Chucoin";

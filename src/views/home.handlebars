@@ -1,7 +1,50 @@
 <section class="hero">
-  <h2>{{pagename}}</h2>
+  <h2 class="header-text">STAY ALERT FOR ALL THE RAINS!</h2>
+  <h3>Last rain: <div id="dataDisplay"></div>
+  </h3>
   <img src="/assets/imgs/landing1.png" alt="">
+  <a href="#rains"><span class="arrow">&nbsp</span></a>
 </section>
-<section>
-  OTRA COSA
+<section id="rains" class="rains">
+  <div class="container">
+    <h2>
+      Claim your Roobet rains alerts now!
+    </h2>
+    <table id="dataTable">
+      <thead>
+        <tr>
+          <th>Amount</th>
+          <th>Crypto</th>
+          <th>Status</th>
+          <th>Creator</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr id="dataRow">
+          <td id="amountCell">$25</td>
+          <td id="balanceCell">ETH</td>
+          <td id="statusCell">Ended</td>
+          <td id="creatorCell">Thebabamamamamama</td>
+        </tr>
+      </tbody>
+    </table>
+    {{!-- {{#if isUser}} onclick="" {{/if}} --}}
+    <button> Claim {{coinname}}!</button>
+  </div>
+  <a class="claim-login" href="/login">Para claimear esto debes estar loggeado. Ir al login</a>
+
+  <div class="faq">
+    <article class="question">
+      <h3>¿Cómo funciona {{pagename}}?</h3>
+      <p>Cada vez que haya una rain, sonará un alerta en tu navegador para notificarte.
+      </p>
+    </article>
+    <article class="question">
+      <h3>¿Qué son las {{coinname}}?</h3>
+      <p>Podrás reclamar {{coinname}} al hacer click en el botón para reclamarla. Estas podrán ser canjeadas en un
+        futuro
+        en nuestro
+        sitio por un premio.</p>
+    </article>
+  </div>
 </section>

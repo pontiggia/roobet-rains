@@ -44,7 +44,7 @@ function processMessage(data) {
       const parsedData = JSON.parse(jsonData);
       const eventType = parsedData[0];
       const eventData = parsedData[1];
-      if (eventType === 'new_bet') {
+      if (eventType === 'rainUpdate') {
         console.log('New bet:', eventData);
         if (dataCallback) {
           dataCallback(eventData);

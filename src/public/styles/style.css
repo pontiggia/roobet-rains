@@ -13,21 +13,21 @@
 * {
   padding: 0;
   margin: 0;
+  font-family: "Excon-Variable", sans-serif;
 }
 
 body {
-  font-family: "Excon-Variable", sans-serif;
   background-color: #1d1a3c;
   color: #fefefe;
+  background: #1d1a3c;
+  background: radial-gradient(circle, #1d1a3c 0%, #1d1a3c 55%, rgb(0, 0, 0) 100%);
+  background-attachment: fixed;
+  background-size: cover;
 }
 
 html {
   font-size: 16px;
-}
-
-a:focus,
-a:hover {
-  text-decoration: underline;
+  scroll-behavior: smooth;
 }
 
 ::-webkit-scrollbar {
@@ -40,17 +40,32 @@ a:hover {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #fff;
+  background: #dba142;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #555;
+  background: #fefefe;
 }
 
 a,
 a:visited {
   text-decoration: none;
   color: inherit;
+}
+
+input {
+  background-image: none;
+  border: 0;
+  color: inherit;
+  font: inherit;
+  margin: 0;
+  outline: 0;
+  padding: 0;
+  transition: background-color 0.3s;
+}
+
+input[type=submit] {
+  cursor: pointer;
 }
 
 input {
@@ -87,9 +102,28 @@ input[type=submit] {
   flex: 1;
 }
 
+.login {
+  color: #eee;
+}
+
+.login label,
+.login input[type=text],
+.login input[type=password],
+.login input[type=submit] {
+  border-radius: 0.25rem;
+  padding: 1.6rem;
+}
+
+.login label {
+  background-color: #363b41;
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
+  padding-inline: 1.25rem;
+}
+
 .login input[type=password],
 .login input[type=text] {
-  background-color: #4c3a82;
+  background-color: #3b4148;
   border-bottom-left-radius: 0;
   border-top-left-radius: 0;
 }
@@ -98,19 +132,19 @@ input[type=submit] {
 .login input[type=password]:hover,
 .login input[type=text]:focus,
 .login input[type=text]:hover {
-  background-color: #6b3ecb;
+  background-color: #434a52;
 }
 
 .login input[type=submit] {
-  background-color: #4c3a82;
-  color: #dba142;
+  background-color: #ea4c88;
+  color: #eee;
   font-weight: 700;
   text-transform: uppercase;
 }
 
 .login input[type=submit]:focus,
 .login input[type=submit]:hover {
-  background-color: #6b3ecb;
+  background-color: #d44179;
 }
 
 .hidden {
@@ -128,8 +162,7 @@ header {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  padding: 24px;
-  height: 5vh;
+  height: 10vh;
 }
 header div.logo a {
   color: #dba142;
@@ -146,6 +179,9 @@ header div.logo a img.logo-img {
 header div.logo a h1.logo-text {
   text-transform: uppercase;
 }
+header nav.hidden-nav {
+  display: none;
+}
 header nav ul {
   display: flex;
   align-items: center;
@@ -156,12 +192,38 @@ header nav ul li {
   align-items: center;
 }
 header nav ul li a {
+  font-size: 1.2rem;
   transition: all 200ms;
 }
 header nav ul li a:hover {
   scale: 1.1;
 }
 
+span.arrow {
+  position: absolute;
+  bottom: 6vh;
+  height: 24px;
+  width: 24px;
+  border-bottom: 4px solid #fefefe;
+  border-left: 4px solid #fefefe;
+  filter: drop-shadow(2px 2px 6px rgba(255, 255, 255, 0.6));
+  transform: rotate(-45deg);
+  animation: arrowmovement 2s infinite ease-in-out;
+}
+
+@keyframes arrowmovement {
+  0% {
+    transform: rotate(-45deg) translate(0, 0);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: rotate(-45deg) translate(-20px, 20px);
+    opacity: 0;
+  }
+}
 main section {
   transition: all 400ms;
 }
@@ -171,49 +233,104 @@ main section.hero {
   align-items: center;
   justify-content: center;
   position: relative;
-  justify-content: center;
-  text-align: center;
-  min-height: 100vh;
   animation: 1s fadein 0.5s forwards;
   color: #fff;
-  min-height: 95vh;
+  min-height: 90vh;
 }
-main section.hero.background-image {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: url("https://images.unsplash.com/photo-1505535162959-9bbcb4ab22d6?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1600&h=900&fit=crop&s=2feeaf89ad55829f92c4bbc6ca8e83ce");
-  background-size: cover;
-  z-index: -1;
-  background-color: #80a3db;
+main section.hero img {
+  filter: drop-shadow(2px 2px 6px rgba(255, 255, 255, 0.2));
 }
-main section.hero h1 {
-  font: 72px "Amatic SC", sans-serif;
+main section.hero h2 {
+  font-size: 6rem;
   text-shadow: 2px 2px rgba(0, 0, 0, 0.3);
   margin-bottom: 15px;
+  filter: drop-shadow(2px 2px 6px rgba(255, 255, 255, 0.6));
 }
 main section.hero h3 {
-  font: 28px "Raleway", sans-serif;
+  font-size: 28px;
   font-weight: 300;
   text-shadow: 2px 2px rgba(0, 0, 0, 0.3);
   margin-bottom: 40px;
-}
-main section.hero a.btn {
-  padding: 20px 46px;
-}
-main section.hero.hero-content-area {
-  opacity: 0;
-  margin-top: 100px;
-  animation: 1s slidefade 1s forwards;
 }
 main section.form {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 95vh;
+  min-height: 90vh;
+}
+main section.rains {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  justify-content: center;
+  animation: 1s fadein 0.5s forwards;
+  color: #fff;
+  min-height: 100vh;
+  gap: 2rem;
+}
+main section.rains div.container {
+  display: flex;
+  gap: 5rem;
+  flex-direction: column;
+  width: 75%;
+}
+main section.rains div.container table {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+main section.rains div.container table thead,
+main section.rains div.container table tbody {
+  width: 100%;
+}
+main section.rains div.container table tr {
+  display: flex;
+  gap: 6rem;
+  width: 100%;
+}
+main section.rains div.container table tr th,
+main section.rains div.container table tr td {
+  width: 100%;
+  font-size: 1.4rem;
+  text-align: center;
+  /* Centra el texto */
+  padding: 8px;
+}
+main section.rains div.container button {
+  padding: 1rem 2rem;
+  font-size: 1.4rem;
+  background-color: #dba142;
+  border-radius: 1rem;
+  width: 30%;
+  cursor: pointer;
+  margin: auto;
+}
+main section.rains div.container h2 {
+  text-align: center;
+}
+main section.rains a.claim-login {
+  font-size: 1.2rem;
+  transition: all 200ms;
+}
+main section.rains a.claim-login:hover {
+  scale: 1.1;
+}
+main section.rains div.faq {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+main section.rains h2 {
+  font-size: 2.8rem;
+}
+
+article.question {
+  padding: 2.4rem;
+  border-radius: 2rem;
 }
 
 @keyframes fadein {
