@@ -22,7 +22,7 @@ const createSendToken = (user, statusCode, res) => {
     expires: new Date(Date.now() + JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000),
     httpOnly: true,
   };
-  cookieOptions.secure = true;
+  if (NODE_ENV === "production") cookieOptions.secure = true;
 
   res.cookie("jwt", token, cookieOptions);
 
@@ -37,6 +37,17 @@ const createSendToken = (user, statusCode, res) => {
     },
   });
 };
+
+export const signup = catchAsync(async (req, res, next) => {
+  const newUser = await User.create({
+    name: req.body.name,
+    email: req.body.email,
+    password: req.body.password,
+    passwordConfirm: req.body.passwordConfirm,
+  });
+
+  createSendToken(newUser, 201, res);
+});
 
 export const login = catchAsync(async (req, res, next) => {
   const { email, password } = req.body;
@@ -55,17 +66,6 @@ export const login = catchAsync(async (req, res, next) => {
   // 3) If everything ok, send token to client
   //console.log(user);
   createSendToken(user, 200, res);
-});
-
-export const signup = catchAsync(async (req, res, next) => {
-  const newUser = await User.create({
-    name: req.body.name,
-    email: req.body.email,
-    password: req.body.password,
-    passwordConfirm: req.body.passwordConfirm,
-  });
-
-  createSendToken(newUser, 201, res);
 });
 
 export const logout = (req, res) => {
@@ -114,21 +114,16 @@ export const protect = catchAsync(async (req, res, next) => {
   next();
 });
 
-// Only for rendered pages, no errors!
+// En authController.js, en el middleware isLoggedIn
 export const isLoggedIn = async (req, res, next) => {
   if (req.cookies.jwt) {
     try {
-      // 1) verify token
       const decoded = await promisify(jwt.verify)(req.cookies.jwt, JWT_SECRET);
 
-      // 2) Check if user still exists
       const currentUser = await User.findById(decoded.id);
+      
       if (!currentUser) {
-        return next();
-      }
-
-      // 3) Check if user changed password after the token was issued
-      if (currentUser.changedPasswordAfter(decoded.iat)) {
+        console.log('No user found with this ID');
         return next();
       }
 
@@ -136,9 +131,11 @@ export const isLoggedIn = async (req, res, next) => {
       res.locals.user = currentUser;
       return next();
     } catch (err) {
+      console.log('Error in isLoggedIn:', err);
       return next();
     }
   }
+  console.log('No JWT cookie found');
   next();
 };
 
@@ -151,4 +148,12 @@ export const restrictTo = (...roles) => {
     }
     next();
   };
+};
+
+export const authController = {
+  login,
+  logout,
+  protect,
+  restrictTo,
+  isLoggedIn,
 };

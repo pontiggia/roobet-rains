@@ -17,9 +17,8 @@ import viewRoutes from "./routes/viewRoutes.js";
 const app = express();
 const __dirname = path.resolve(); // Usamos path.resolve() para obtener el directorio raíz correctamente
 
-// Verificar las rutas
-console.log("Directorio raíz (__dirname):", __dirname);
-console.log("Directorio de vistas:", path.resolve(__dirname, "src/views"));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // Middlewares
 app.use(cookieParser());

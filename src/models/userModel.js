@@ -1,4 +1,3 @@
-import e from "express";
 import mongoose from "mongoose";
 import validator from "validator";
 import bcrypt from "bcryptjs";
@@ -7,6 +6,8 @@ const userSchema = new mongoose.Schema({
   name: {
     type: String,
     required: [true, "A user must have a name"],
+    // Validate that the name does contain only letters
+    validate: [validator.isAlpha, "Name must only contain letters"],
   },
   email: {
     type: String,
@@ -18,6 +19,13 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: [true, "A user must have a password"],
+    // Validate that the password contains only letters and numbers
+    validate: {
+      validator: function (el) {
+        return el.match(/^[a-zA-Z0-9]+$/);
+      },
+      message: "Password must only contain letters and numbers.",
+    },
     minlength: 8,
   },
   passwordConfirm: {

@@ -11,28 +11,29 @@ import { coinName, pageName } from "../utils/globalVariables.js";
     });
 }); */
 
-export const home = (req, res) => {
+export const home = catchAsync(async (req, res, next) => {
+    console.log('Cookies:', req.cookies);
+    console.log('JWT cookie:', req.cookies.jwt);
+    console.log('User:', res.locals.user);
     res.render("home", {
         title: `Home | ${pageName}`,
         pagename: pageName,
         coinname: coinName,
-        isUser: req.user
     });
-};
+});
 
-
-export const getLogin = (req, res) => {
+export const getLogin = catchAsync(async (req, res, next) => {
     res.render("login", {
         title: `Login | ${pageName}`,
         pagename: pageName,
         inLogin: true
     });
-}
+});
 
-export const getRegister = (req, res) => {
+export const getRegister = catchAsync(async (req, res, next) => {
     res.render("signUp", {
         title: `Register | ${pageName}`,
         pagename: pageName,
         inLogin: true
     });
-}
+});
