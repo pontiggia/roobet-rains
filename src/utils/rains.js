@@ -4,6 +4,8 @@ import WebSocket from "ws";
 const url = "wss://api.roobet.com/socket.io/?EIO=3&transport=websocket";
 
 let dataCallback = null;
+let controllerCallback = null;
+let last_status = null;
 
 export const connect = () => {
   const ws = new WebSocket(url, {
@@ -37,6 +39,10 @@ export const getDataFromSocket = (callback) => {
   dataCallback = callback;
 };
 
+export const getDataToController = (callback) => {
+  controllerCallback = callback;
+};
+
 function processMessage(data) {
   try {
     const jsonData = extractJson(data);
@@ -44,10 +50,15 @@ function processMessage(data) {
       const parsedData = JSON.parse(jsonData);
       const eventType = parsedData[0];
       const eventData = parsedData[1];
+      //console.log('Event_type:', eventType);
       if (eventType === 'rainUpdate') {
-        console.log('New bet:', eventData);
-        if (dataCallback) {
-          dataCallback(eventData);
+        //console.log('Rain_data:', eventData);
+        if (last_status !== eventData.status) {
+          last_status = eventData.status;
+          if (dataCallback) {
+            dataCallback(eventData);
+            controllerCallback(eventData);
+          }
         }
       }
     }

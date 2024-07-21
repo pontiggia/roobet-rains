@@ -20,6 +20,7 @@ const rainSchema = new mongoose.Schema({
   },
   id: {
     type: String,
+    required: [true, "A rain must have an ID"],
   },
   rainEndTime: {
     type: Date,

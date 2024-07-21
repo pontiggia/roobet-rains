@@ -2,7 +2,6 @@ import User from "../models/userModel.js";
 import catchAsync from "../utils/catchAsync.js";
 import AppError from "../utils/appError.js";
 
-
 export const getAllUsers = catchAsync(async (req, res, next) => {
   const users = await User.find();
 
@@ -15,7 +14,6 @@ export const getAllUsers = catchAsync(async (req, res, next) => {
   });
 });
 
-
 export const createUser = catchAsync(async (req, res, next) => {
   console.log(req.body);
   const newUser = await User.create(req.body);
@@ -27,7 +25,6 @@ export const createUser = catchAsync(async (req, res, next) => {
     },
   });
 });
-
 
 export const getUser = catchAsync(async (req, res, next) => {
   const user = await User.findById(req.params.id);
@@ -44,8 +41,8 @@ export const getUser = catchAsync(async (req, res, next) => {
   });
 });
 
-
 export const updateUser = catchAsync(async (req, res, next) => {
+  console.log(req.body);
   const user = await User.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
     runValidators: true,
@@ -61,7 +58,6 @@ export const updateUser = catchAsync(async (req, res, next) => {
   });
 });
 
-
 export const deleteUser = catchAsync(async (req, res, next) => {
   const user = await User.findByIdAndDelete(req.params.id);
 
@@ -70,5 +66,28 @@ export const deleteUser = catchAsync(async (req, res, next) => {
   res.status(204).json({
     status: "success",
     data: null,
+  });
+});
+
+export const updateUserCoins = catchAsync(async (req, res, next) => {
+
+  const user = await User.findByIdAndUpdate(
+    res.locals.user._id,
+    { $inc: { coins: req.body.coins, claimedRains: req.body.claimedRains } },
+    {
+      new: true,
+      runValidators: true,
+    }
+  );
+
+  if (!user) {
+    return next(new AppError("No user found with that ID", 404));
+  }
+
+  res.status(200).json({
+    status: "success",
+    data: {
+      user,
+    },
   });
 });

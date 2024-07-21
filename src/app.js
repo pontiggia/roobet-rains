@@ -7,6 +7,8 @@ import xss from "xss-clean";
 import hpp from "hpp";
 import cookieParser from "cookie-parser";
 import { engine } from "express-handlebars";
+import { allowInsecurePrototypeAccess } from "@handlebars/allow-prototype-access";
+import Handlebars from "handlebars";
 
 import AppError from "./utils/appError.js";
 import globalErrorHandler from "./controllers/errorController.js";
@@ -24,8 +26,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.resolve(__dirname, "src/public"))); // Asegúrate de que el directorio public esté dentro de src
 
-// Configuración del motor de vistas
-app.engine("handlebars", engine()); // Configurar Handlebars como el motor de plantillas
+// Configuración del motor de vistas con express-handlebars y allowInsecurePrototypeAccess
+app.engine("handlebars", engine({
+  handlebars: allowInsecurePrototypeAccess(Handlebars)
+}));
 app.set("view engine", "handlebars"); // Motor de plantillas
 app.set("views", path.resolve(__dirname, "src/views")); // Directorio donde se encuentran las plantillas
 

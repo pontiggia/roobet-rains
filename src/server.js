@@ -4,6 +4,7 @@ import { createServer } from "http";
 import { Server } from "socket.io";
 import app from "./app.js";
 import { connect, getDataFromSocket } from "./utils/rains.js";
+import "./controllers/rainController.js";
 import { DATABASE_PASSWORD, DATABASE_STRING, PORT } from "../config.js";
 
 const DB = DATABASE_STRING.replace("<PASSWORD>", DATABASE_PASSWORD);
@@ -30,7 +31,7 @@ io.on('connection', (socket) => {
   });
 });
 
-//connect();
+connect();
 
 server.listen(port, () => {
   console.log(`Server running on port ${port}`);
