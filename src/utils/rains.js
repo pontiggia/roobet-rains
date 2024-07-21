@@ -6,6 +6,7 @@ const url = "wss://api.roobet.com/socket.io/?EIO=3&transport=websocket";
 let dataCallback = null;
 let controllerCallback = null;
 let last_status = null;
+let currentRainStatus = null;
 
 export const connect = () => {
   const ws = new WebSocket(url, {
@@ -19,7 +20,7 @@ export const connect = () => {
   ws.on("open", () => {
     console.log("Connected to the server.");
   });
-  ``
+  ``;
   ws.on("message", (data) => {
     const message = data.toString();
     processMessage(message);
@@ -43,6 +44,10 @@ export const getDataToController = (callback) => {
   controllerCallback = callback;
 };
 
+export const getCurrentRainStatus = () => {
+  return currentRainStatus;
+};
+
 function processMessage(data) {
   try {
     const jsonData = extractJson(data);
@@ -50,9 +55,8 @@ function processMessage(data) {
       const parsedData = JSON.parse(jsonData);
       const eventType = parsedData[0];
       const eventData = parsedData[1];
-      //console.log('Event_type:', eventType);
-      if (eventType === 'rainUpdate') {
-        //console.log('Rain_data:', eventData);
+      if (eventType === "rainUpdate") {
+        currentRainStatus = eventData;
         if (last_status !== eventData.status) {
           last_status = eventData.status;
           if (dataCallback) {
@@ -63,11 +67,11 @@ function processMessage(data) {
       }
     }
   } catch (error) {
-    console.error('Error parsing or handling message or just opened');
+    console.error("Error parsing or handling message or just opened");
   }
 }
 
 function extractJson(data) {
-  const startIndex = data.indexOf('[');
+  const startIndex = data.indexOf("[");
   return startIndex > -1 ? data.substring(startIndex) : null;
 }

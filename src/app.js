@@ -30,8 +30,10 @@ app.use(express.static(path.resolve(__dirname, "src/public"))); // Asegúrate de
 app.engine("handlebars", engine({
   handlebars: allowInsecurePrototypeAccess(Handlebars)
 }));
+
 app.set("view engine", "handlebars"); // Motor de plantillas
 app.set("views", path.resolve(__dirname, "src/views")); // Directorio donde se encuentran las plantillas
+
 
 // Seguridad
 app.use(helmet());

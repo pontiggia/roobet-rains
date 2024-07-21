@@ -5,6 +5,7 @@ import { Server } from "socket.io";
 import app from "./app.js";
 import { connect, getDataFromSocket } from "./utils/rains.js";
 import "./controllers/rainController.js";
+import "./controllers/userController.js";
 import { DATABASE_PASSWORD, DATABASE_STRING, PORT } from "../config.js";
 
 const DB = DATABASE_STRING.replace("<PASSWORD>", DATABASE_PASSWORD);

@@ -12,10 +12,15 @@ import { coinName, pageName } from "../utils/globalVariables.js";
 }); */
 
 export const home = catchAsync(async (req, res, next) => {
+    const last_rain = await Rain.findOne().sort({ rainEndTime: -1 });
+    const last_rain_date = last_rain.rainEndTime;
+    const date = new Date(last_rain_date);
+    const formattedDate = date.toLocaleString("en-US", {hour: "numeric",minute: "numeric",});
     res.render("home", {
         title: `Home | ${pageName}`,
         pagename: pageName,
         coinname: coinName,
+        formattedDate
     });
 });
 
