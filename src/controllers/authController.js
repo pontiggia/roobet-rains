@@ -116,14 +116,11 @@ export const protect = catchAsync(async (req, res, next) => {
 });
 
 export const isLoggedIn = async (req, res, next) => {
-  console.log("Cookies:", req.cookies); // Añade este log
   if (req.cookies.jwt) {
     try {
       const decoded = await promisify(jwt.verify)(req.cookies.jwt, JWT_SECRET);
-      console.log("Decoded JWT:", decoded); // Añade este log
 
       const currentUser = await User.findById(decoded.id);
-      console.log("Current user:", currentUser); // Añade este log
 
       if (!currentUser) {
         console.log("No user found with this ID");
@@ -132,7 +129,6 @@ export const isLoggedIn = async (req, res, next) => {
 
       // THERE IS A LOGGED IN USER
       res.locals.user = currentUser;
-      console.log("User set in res.locals:", res.locals.user); // Añade este log
       return next();
     } catch (err) {
       console.log("Error in isLoggedIn:", err);

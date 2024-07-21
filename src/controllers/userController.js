@@ -15,7 +15,6 @@ export const getAllUsers = catchAsync(async (req, res, next) => {
 });
 
 export const createUser = catchAsync(async (req, res, next) => {
-  console.log(req.body);
   const newUser = await User.create(req.body);
 
   res.status(201).json({
@@ -42,7 +41,6 @@ export const getUser = catchAsync(async (req, res, next) => {
 });
 
 export const updateUser = catchAsync(async (req, res, next) => {
-  console.log(req.body);
   const user = await User.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
     runValidators: true,
