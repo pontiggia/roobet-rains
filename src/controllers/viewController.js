@@ -12,12 +12,13 @@ import { coinName, pageName } from "../utils/globalVariables.js";
 }); */
 
 export const home = catchAsync(async (req, res, next) => {
-    const user = await User.findById(res.locals.user._id);
+    console.log('Entering home function');
+    console.log('res.locals.user:', res.locals.user);
     res.render("home", {
         title: `Home | ${pageName}`,
         pagename: pageName,
         coinname: coinName,
-        user
+        //user
     });
 });
 
