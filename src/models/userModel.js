@@ -19,13 +19,6 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: [true, "A user must have a password"],
-    // Validate that the password contains only letters and numbers
-    validate: {
-      validator: function (el) {
-        return el.match(/^[a-zA-Z0-9]+$/);
-      },
-      message: "Password must only contain letters and numbers.",
-    },
     minlength: 8,
   },
   passwordConfirm: {
