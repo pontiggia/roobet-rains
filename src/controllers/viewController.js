@@ -20,7 +20,8 @@ export const home = catchAsync(async (req, res, next) => {
         title: `Home | ${pageName}`,
         pagename: pageName,
         coinname: coinName,
-        formattedDate
+        formattedDate,
+        last_rain
     });
 });
 

@@ -3,33 +3,46 @@ document.addEventListener("DOMContentLoaded", function () {
   let currentRainId = null;
   let canClaim = false;
 
-  // Función para actualizar el estado del botón
   function updateButtonState(rainData) {
+    console.log("Updating button state with rain data:", rainData);
+
     if (!rainData) {
       claimButton.disabled = true;
       canClaim = false;
       currentRainId = null;
-      alert("No rain information available at the moment.");
+      console.log("No rain information available");
       return;
     }
 
-    if ((rainData.status === "active" || rainData.status === "countdown") && rainData.id !== currentRainId) {
+    if (rainData.status === "active") {
       claimButton.disabled = false;
       canClaim = true;
       currentRainId = rainData.id;
-    } else if (rainData.status !== "active") {
+      console.log("Rain is active, button enabled");
+    } else {
       claimButton.disabled = true;
       canClaim = false;
       currentRainId = null;
-      alert(
-        "There is no active rain at the moment. Please wait for the next one!"
-      );
+      console.log("Rain is not active, button disabled");
     }
   }
 
-  // Escuchar los eventos de rain
   const socket = io();
-  socket.on("rainData", updateButtonState);
+  
+  socket.on("connect", () => {
+    console.log("Connected to server");
+    socket.emit("requestCurrentData");
+  });
+
+  socket.on("rainData", (data) => {
+    console.log("Received rain data:", data);
+    updateButtonState(data);
+  });
+
+  socket.on("currentData", (data) => {
+    console.log("Received current data:", data);
+    updateButtonState(data);
+  });
 
   claimButton.addEventListener("click", async function () {
     if (!canClaim) {

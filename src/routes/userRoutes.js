@@ -7,11 +7,11 @@ const router = express.Router();
 router.post("/login", login);
 router.post("/signup", signup);
 
-//router.use(protect);
+router.use(protect);
 
 router.get("/logout", logout);
 router.patch("/updateCoins", isLoggedIn, updateUserCoins);
-//router.use(restrictTo("admin"));
+router.use(restrictTo("admin"));
 
 router
     .route("/")
