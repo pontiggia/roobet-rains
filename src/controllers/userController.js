@@ -72,7 +72,8 @@ const userClaimedRains = new Map();
 
 export const updateUserCoins = catchAsync(async (req, res, next) => {
   const { rainId } = req.body;
-  const userId = res.locals.user?._id;
+  console.log("Rain ID:", rainId);
+  const userId = res.locals.user._id.toString(); // Convertir a string para consistencia
 
   // Verificar si el userId está presente
   if (!userId) {
@@ -84,11 +85,8 @@ export const updateUserCoins = catchAsync(async (req, res, next) => {
 
   // Verificar si la rain está activa
   const currentRain = getCurrentRainStatus();
-  if (
-    !currentRain ||
-    currentRain.id !== rainId ||
-    currentRain.status !== "Active"
-  ) {
+  console.log("Current Rain:", currentRain);
+  if (!currentRain || (currentRain.status !== "active" && currentRain.status !== "countdown")) {
     return res.status(400).json({
       status: "error",
       message: "No active rain or invalid rain ID",
@@ -111,7 +109,7 @@ export const updateUserCoins = catchAsync(async (req, res, next) => {
   // Actualizar el usuario
   const updatedUser = await User.findByIdAndUpdate(
     userId,
-    { $inc: { coins: 1, claimedRains: 1 } },
+    { $inc: { coins: 1 } },
     {
       new: true,
       runValidators: true,
@@ -128,13 +126,13 @@ export const updateUserCoins = catchAsync(async (req, res, next) => {
   // Marcar esta rain como reclamada por este usuario
   userClaims.add(rainId);
 
-  // Limpiar rains reclamadas antiguas para este usuario (opcional)
+  // Limpiar rains reclamadas antiguas para este usuario después de cierto tiempo
   setTimeout(() => {
     userClaims.delete(rainId);
     if (userClaims.size === 0) {
       userClaimedRains.delete(userId);
     }
-  }, 120000);
+  }, 300000); // 5 minutos
 
   res.status(200).json({
     status: "success",

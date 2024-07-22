@@ -5,7 +5,7 @@ import { getDataToController } from "../utils/rains.js";
 
 const handleRainData = async (data) => {
   try {
-    console.log("Handling rain data:", data);
+    //console.log("Handling rain data:", data);
     switch (data.status) {
       case "countdown":
         await saveNewRain(data);
@@ -25,7 +25,7 @@ const handleRainData = async (data) => {
 const saveNewRain = async (data) => {
   const newRain = new Rain({
     amount: data.amount,
-    balanceType: data.balanceType,
+    balanceType: data.balanceType === 'crypto' ? 'BTC' : data.balanceType,
     createdByUser: data.createdByUser,
     creatorName: data.creatorName,
     creatorUserId: data.creatorUserId,
@@ -37,7 +37,7 @@ const saveNewRain = async (data) => {
   });
 
   await newRain.save();
-  console.log("New rain saved to database:", newRain);
+  //console.log("New rain saved to database:", newRain);
 };
 
 const updateExistingRain = async (data) => {

@@ -14,9 +14,10 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
 
-    if (rainData.status === "active") {
+    if (rainData.status === "active" || rainData.status === "countdown") {
       claimButton.disabled = false;
       canClaim = true;
+      console.log('****', rainData.id);
       currentRainId = rainData.id;
       console.log("Rain is active, button enabled");
     } else {

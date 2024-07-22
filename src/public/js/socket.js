@@ -12,12 +12,10 @@ document.addEventListener('DOMContentLoaded', () => {
     socket.on('rainData', (data) => {
         console.log('Real-time data:', data);
         const amount = data.amount;
-        const balance = data.balanceType;
+        const balance = data.balanceType === 'crypto' ? 'BTC' : data.balanceType;
         const status = data.status;
         const creator = data.creatorName;
-        const formattedData = `Amount: ${amount}, Balance: ${balance}, Status: ${status}, Creator: ${creator}`;
 
-        dataDisplayElement.textContent = formattedData; // Actualiza el contenido del h1 con los datos recibidos
         audio.play();
 
         amountCell.textContent = amount;
