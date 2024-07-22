@@ -19,11 +19,12 @@
       {{inLogin}}
       <ul>
         {{#if user}}
-          <li class="menu-item"><a href="#cooming-soon">{{user.name}}</a></li>
-          <li class="menu-item"><a href="/logout" id="logout">Logout</a></li>
+        <li class="menu-item">{{coinname}}s: {{user.coins}}</li>
+        <li class="menu-item"><a href="#cooming-soon">{{user.name}}</a></li>
+        <li class="menu-item"><a href="/logout" id="logout">Logout</a></li>
         {{else}}
-          <li class="menu-item"><a href="/login">Login</a></li>
-          <li class="menu-item"><a href="/register">Register</a></li>
+        <li class="menu-item"><a href="/login">Login</a></li>
+        <li class="menu-item"><a href="/register">Register</a></li>
         {{/if}}
       </ul>
     </nav>
@@ -40,6 +41,7 @@
 
   <script src="/socket.io/socket.io.js"></script>
   <script src="/js/socket.js"></script>
+
 
 </body>
 

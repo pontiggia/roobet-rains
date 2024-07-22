@@ -21,18 +21,19 @@
       </thead>
       <tbody>
         <tr id="dataRow">
-          <td id="amountCell">$25</td>
-          <td id="balanceCell">ETH</td>
-          <td id="statusCell">Ended</td>
-          <td id="creatorCell">Thebabamamamamama</td>
+          <td id="amountCell">&nbsp;</td>
+          <td id="balanceCell">&nbsp;</td>
+          <td id="statusCell">&nbsp;</td>
+          <td id="creatorCell">&nbsp;</td>
         </tr>
       </tbody>
     </table>
     {{!-- {{#if isUser}} onclick="" {{/if}} --}}
     <button id="claim-chucoin"> Claim {{coinname}}!</button>
   </div>
+  {{#unless user}}
   <a class="claim-login" href="/login">To claim a coin, you must be logged in.</a>
-
+  {{/unless}}
   <div class="faq">
     <article class="question">
       <h3>How does {{pagename}} work?</h3>
@@ -42,7 +43,8 @@
     </article>
     <article class="question">
       <h3>What are {{coinname}}?</h3>
-      <p>Whenever a new rain is Active, you can claim a {{coinname}} by clicking the button above. These coins can later be exchanged for roobet balance.</p>
+      <p>Whenever a new rain is Active, you can claim a {{coinname}} by clicking the button above. These coins can later
+        be exchanged for roobet balance.</p>
     </article>
     <article class="question">
       <h3>Disclaimer</h3>

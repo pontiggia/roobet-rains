@@ -20,11 +20,18 @@ const port = PORT || 3000;
 const server = createServer(app);
 const io = new Server(server);
 
+
+
 io.on('connection', (socket) => {
   console.log('New client connected');
 
   getDataFromSocket((data) => {
     socket.emit('rainData', data);
+  });
+
+
+  socket.on('requestCurrentData', (currentData) => {
+    socket.emit('currentData', currentData);
   });
 
   socket.on('disconnect', () => {

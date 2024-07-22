@@ -13,11 +13,11 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
 
-    if (rainData.status === "Active" && rainData.id !== currentRainId) {
+    if ((rainData.status === "active" || rainData.status === "countdown") && rainData.id !== currentRainId) {
       claimButton.disabled = false;
       canClaim = true;
       currentRainId = rainData.id;
-    } else if (rainData.status !== "Active") {
+    } else if (rainData.status !== "active") {
       claimButton.disabled = true;
       canClaim = false;
       currentRainId = null;

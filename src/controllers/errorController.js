@@ -1,5 +1,6 @@
 import AppError from "../utils/appError.js";
 import { NODE_ENV } from "../../config.js";
+import { pageName } from "../utils/globalVariables.js";
 
 const handleCastErrorDB = (err) => {
   const message = `Invalid ${err.path}: ${err.value}.`;
@@ -41,7 +42,8 @@ const sendErrorDev = (err, req, res) => {
   // B) RENDERED WEBSITE
   console.error("ERROR 💥", err);
   return res.status(err.statusCode).render("error", {
-    title: "Something went wrong!",
+    title: pageName,
+    pagename: pageName,
     msg: err.message,
   });
 };

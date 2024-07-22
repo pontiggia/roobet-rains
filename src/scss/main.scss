@@ -294,6 +294,16 @@ span.arrow {
 
 }
 
+a[role="button"] {
+    padding: 1rem 2rem;
+    font-size: 1.4rem;
+    background-color: $yellow-color;
+    border-radius: 1rem;
+    cursor: pointer;
+    text-align: center;
+    color: black;
+}
+
 main {
 
     section {
@@ -308,7 +318,6 @@ main {
             animation: 1s fadein 0.5s forwards;
             color: #fff;
             min-height: 90vh;
-            margin-top: 10px;
 
             img {
                 filter: drop-shadow(2px 2px 6px rgba(255, 255, 255, 0.2));
