@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     socket.on('rainData', (data) => {
         console.log('Real-time data:', data);
-        const amount = data.amount;
+        const amount = data.amount.toFixed(2);
         const balance = data.balanceType === 'crypto' ? 'BTC' : data.balanceType;
         const status = data.status;
         const creator = data.creatorName;
