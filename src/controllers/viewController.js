@@ -15,21 +15,29 @@ export const home = catchAsync(async (req, res, next) => {
     const last_rain = await Rain.findOne().sort({ rainEndTime: -1 });
     const last_rain_date = last_rain.rainEndTime;
     const date = new Date(last_rain_date);
-    
+
     // Subtract 3 hours
     date.setHours(date.getHours() - 3);
-    
+
     const formattedDate = date.toLocaleString("en-US", {
         hour: "numeric",
         minute: "numeric",
     });
-    
+
     res.render("home", {
         title: `Home | ${pageName}`,
         pagename: pageName,
         coinname: coinName,
         formattedDate,
         last_rain
+    });
+});
+
+export const getProfile = catchAsync(async (req, res, next) => {
+    res.render("profile", {
+        title: `Profile | ${pageName}`,
+        pagename: pageName,
+        coinname: coinName,
     });
 });
 

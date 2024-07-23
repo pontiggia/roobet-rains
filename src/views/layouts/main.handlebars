@@ -5,12 +5,12 @@
   <link rel="stylesheet" href="/styles/style.css">
   <link rel="shortcut icon" href="/assets/imgs/logo.svg" type="image/x-icon">
   <title>{{title}}</title>
-  
+
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-SJG2T2X9NR"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
+    function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
 
     gtag('config', 'G-SJG2T2X9NR');
@@ -18,7 +18,7 @@
 
   <!-- Google AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9936683072689327"
-     crossorigin="anonymous"></script>
+    crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -34,7 +34,7 @@
       <ul>
         {{#if user}}
         <li class="menu-item">{{coinname}}s: {{user.coins}}</li>
-        <li class="menu-item"><a href="#coming-soon">{{user.name}}</a></li>
+        <li class="menu-item"><a href="/profile">{{user.name}}</a></li>
         <li class="menu-item"><a href="/logout" id="logout">Logout</a></li>
         {{else}}
         <li class="menu-item"><a href="/login">Login</a></li>
