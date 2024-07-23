@@ -109,7 +109,7 @@ export const updateUserCoins = catchAsync(async (req, res, next) => {
   // Actualizar el usuario
   const updatedUser = await User.findByIdAndUpdate(
     userId,
-    { $inc: { coins: 1 } },
+    { $inc: { coins: 1, claimedRains: 1 } },
     {
       new: true,
       runValidators: true,
