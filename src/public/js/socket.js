@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         audio.play();
 
-        amountCell.textContent = amount;
+        amountCell.textContent = `$${amount}`;
         balanceCell.textContent = balance;
         statusCell.textContent = status;
         creatorCell.textContent = creator;
