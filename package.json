@@ -9,7 +9,8 @@
     "dev": "nodemon --exec \"node -r dotenv/config\" .",
     "sass": "sass src/scss/main.scss src/public/styles/style.css",
     "sass:watch": "sass --watch src/scss/main.scss:src/public/styles/style.css",
-    "build": "npm run sass && npm run copy-assets",
+    "build:js": "webpack",
+    "build": "npm run sass && npm run build:js && npm run copy-assets",
     "dev:watch": "concurrently \"npm run dev\" \"npm run sass:watch\""
   },
   "keywords": [],
@@ -41,5 +42,10 @@
     "validator": "^13.12.0",
     "ws": "^8.18.0",
     "xss-clean": "^0.1.4"
+  },
+  "devDependencies": {
+    "terser-webpack-plugin": "^5.3.10",
+    "webpack": "^5.93.0",
+    "webpack-cli": "^5.1.4"
   }
 }
