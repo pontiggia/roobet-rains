@@ -4,7 +4,6 @@ document.querySelector(".form").addEventListener("submit", function (e) {
   const email = document.querySelector("#login__email").value;
   const password = document.querySelector("#login__password").value;
 
-  // check that email is valid
   if (!email.match(/^[^@]+@[^@]+\.[^@]+$/)) {
     alert("Please enter a valid email address.");
     return;

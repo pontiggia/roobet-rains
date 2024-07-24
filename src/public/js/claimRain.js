@@ -4,44 +4,36 @@ document.addEventListener("DOMContentLoaded", function () {
   let canClaim = false;
 
   function updateButtonState(rainData) {
-    console.log("Updating button state with rain data:", rainData);
 
     if (!rainData) {
       claimButton.disabled = true;
       canClaim = false;
       currentRainId = null;
-      console.log("No rain information available");
       return;
     }
 
     if (rainData.status === "active" || rainData.status === "countdown") {
       claimButton.disabled = false;
       canClaim = true;
-      console.log('****', rainData.id);
       currentRainId = rainData.id;
-      console.log("Rain is active, button enabled");
     } else {
       claimButton.disabled = true;
       canClaim = false;
       currentRainId = null;
-      console.log("Rain is not active, button disabled");
     }
   }
 
   const socket = io();
-  
+
   socket.on("connect", () => {
-    console.log("Connected to server");
     socket.emit("requestCurrentData");
   });
 
   socket.on("rainData", (data) => {
-    console.log("Received rain data:", data);
     updateButtonState(data);
   });
 
   socket.on("currentData", (data) => {
-    console.log("Received current data:", data);
     updateButtonState(data);
   });
 
@@ -68,6 +60,7 @@ document.addEventListener("DOMContentLoaded", function () {
         alert("Coin claimed successfully!");
         claimButton.disabled = true;
         canClaim = false;
+        location.reload();
       } else {
         throw new Error(data.message || "Failed to claim coin");
       }
