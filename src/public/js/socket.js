@@ -23,3 +23,55 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+(function() {
+    const devtools = {
+        isOpen: false,
+        orientation: null
+    };
+    
+    const threshold = 160;
+
+    const emitEvent = (isOpen, orientation) => {
+        window.dispatchEvent(new CustomEvent('devtoolschange', {
+            detail: {
+                isOpen,
+                orientation
+            }
+        }));
+    };
+
+    const main = ({emitEvents = true} = {}) => {
+        const widthThreshold = window.outerWidth - window.innerWidth > threshold;
+        const heightThreshold = window.outerHeight - window.innerHeight > threshold;
+        const orientation = widthThreshold ? 'vertical' : 'horizontal';
+
+        if (!(heightThreshold && widthThreshold) && (
+            window.Firebug && window.Firebug.chrome && window.Firebug.chrome.isInitialized || 
+            widthThreshold || 
+            heightThreshold
+        )) {
+            if ((!devtools.isOpen || devtools.orientation !== orientation) && emitEvents) {
+                emitEvent(true, orientation);
+            }
+
+            devtools.isOpen = true;
+            devtools.orientation = orientation;
+        } else {
+            if (devtools.isOpen && emitEvents) {
+                emitEvent(false, null);
+            }
+
+            devtools.isOpen = false;
+            devtools.orientation = null;
+        }
+    };
+
+    main({emitEvents: false});
+    setInterval(main, 500);
+
+    window.addEventListener('devtoolschange', event => {
+        if (event.detail.isOpen) {
+            debugger;
+        }
+    });
+})();
