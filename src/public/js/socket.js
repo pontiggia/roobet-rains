@@ -18,4 +18,3 @@ document.addEventListener('DOMContentLoaded', () => {
         creatorCell.textContent = creator;
     });
 });
-
