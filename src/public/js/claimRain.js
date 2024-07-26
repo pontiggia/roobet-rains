@@ -1,7 +1,9 @@
 document.addEventListener("DOMContentLoaded", function () {
   const claimButton = document.getElementById("claim-chucoin");
   let currentRainId = null;
-  let canClaim = false;
+  let canClaim = null;
+  const audio = new Audio('../assets/sounds/alert.mp3');
+
 
   function updateButtonState(rainData) {
 
@@ -15,6 +17,11 @@ document.addEventListener("DOMContentLoaded", function () {
     if (rainData.status === "active" || rainData.status === "countdown") {
       claimButton.disabled = false;
       canClaim = true;
+
+      if (canClaim) {
+        audio.play();
+      }
+
       currentRainId = rainData.id;
     } else {
       claimButton.disabled = true;

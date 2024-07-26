@@ -1,7 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
     const socket = io();
-    const dataDisplayElement = document.getElementById('dataDisplay');
-    const audio = new Audio('../assets/sounds/alert.mp3');
 
     const amountCell = document.getElementById('amountCell');
     const balanceCell = document.getElementById('balanceCell');
@@ -13,8 +11,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const balance = data.balanceType === 'crypto' ? 'BTC' : data.balanceType;
         const status = data.status;
         const creator = data.creatorName;
-
-        audio.play();
 
         amountCell.textContent = `$${amount}`;
         balanceCell.textContent = balance;
