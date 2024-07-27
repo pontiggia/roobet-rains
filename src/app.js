@@ -5,6 +5,7 @@ import rateLimit from "express-rate-limit";
 import mongoSanitize from "express-mongo-sanitize";
 import xss from "xss-clean";
 import hpp from "hpp";
+import cors from "cors";
 import cookieParser from "cookie-parser";
 import { engine } from "express-handlebars";
 import { allowInsecurePrototypeAccess } from "@handlebars/allow-prototype-access";
@@ -34,6 +35,7 @@ app.engine("handlebars", engine({
 app.set("view engine", "handlebars"); // Motor de plantillas
 app.set("views", path.resolve(__dirname, "src/views")); // Directorio donde se encuentran las plantillas
 
+app.use(cors());
 
 // Seguridad
 app.use(helmet());
