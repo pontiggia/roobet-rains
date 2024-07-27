@@ -5,6 +5,8 @@ $primary-color: #6b3ecb;
 $text-color: #fefefe;
 $secondary-color: #4c3a82;
 $yellow-color: #dba142;
+$yellow-color-sec: #d39127;
+
 $bgcolor: #1d1a3c;
 
 $scalebutton: 1.1;
@@ -51,9 +53,9 @@ $loginColor: #eee;
 $loginInputBackgroundColor: #3b4148;
 $loginInputHoverBackgroundColor: #434a52;
 $loginLabelBackgroundColor: #363b41;
-$loginSubmitBackgroundColor: #ea4c88;
+$loginSubmitBackgroundColor: $yellow-color;
 $loginSubmitColor: #eee;
-$loginSubmitHoverBackgroundColor: #d44179;
+$loginSubmitHoverBackgroundColor: $yellow-color-sec;
 
 
 * {
