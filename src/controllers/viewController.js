@@ -15,7 +15,7 @@ export const home = catchAsync(async (req, res, next) => {
     const last_rain = await Rain.findOne().sort({ rainEndTime: -1 });
     const last_rain_date = last_rain.rainEndTime;
     const date = new Date(last_rain_date);
-    amount = last_rain.amount.toFixed(2);
+    const amount = last_rain.amount.toFixed(2);
 
     // Subtract 3 hours
     date.setHours(date.getHours() - 3);
